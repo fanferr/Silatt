@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDhFtqvaTMgYH9vyAHFclDUXiOxkl-2GqM",
-    authDomain: "silat-b3100.firebaseapp.com",
-    databaseURL: "https://silat-b3100-default-rtdb.firebaseio.com/",
-    projectId: "silat-b3100",
-    storageBucket: "silat-b3100.firebasestorage.app",
-    messagingSenderId: "471266034969",
-    appId: "1:471266034969:web:467de19582cf2fd3da3188"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 const app = initializeApp(firebaseConfig);

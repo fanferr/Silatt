@@ -1,4 +1,3 @@
-"use client";
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
@@ -21,7 +20,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
             const response = await fetch(`${API_URL}/api/admin/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

@@ -1,4 +1,3 @@
-"use client";
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
@@ -16,7 +15,7 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+        const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
         const newSocket = io(SOCKET_URL);
         setSocket(newSocket);
 

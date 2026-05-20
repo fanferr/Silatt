@@ -458,7 +458,7 @@ const Monitor = () => {
 
                         <div className="flex items-center justify-center gap-12 mt-8 w-full max-w-sm">
                             <div className="flex items-center gap-2 text-[10px] font-black uppercase text-emerald-500 tracking-widest">
-                                <Target size={14} /> Target: {">"}800N
+                                <Target size={14} /> Target: {strikeType === 'pukulan' ? '>150N' : '>250N'}
                             </div>
                             <div className="flex items-center gap-2 text-[10px] font-black uppercase text-primary tracking-widest border-l border-slate-100 pl-12">
                                 <Waves size={14} /> Athlete: {currentAthlete?.name || "Pilih Atlet"}
@@ -477,25 +477,31 @@ const Monitor = () => {
                             </div>
 
                             <div className="space-y-8 mt-10">
-                                {/* Progress bar */}
-                                <div>
-                                    <div className="flex justify-between items-end mb-2">
-                                        <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Efisiensi Serangan</span>
-                                        <span className="text-lg font-black italic text-emerald-500">
-                                            {(Math.min(100, displayPeak / 1000 * 100)).toFixed(1)}%
-                                        </span>
+                                {/* Progress bar - max dinamis sesuai jenis serangan */}
+                                {(() => {
+                                    const maxN = strikeType === 'pukulan' ? 150 : 300;
+                                    const pct = Math.min(100, (displayPeak / maxN) * 100);
+                                    return (
+                                    <div>
+                                        <div className="flex justify-between items-end mb-2">
+                                            <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Efisiensi Serangan</span>
+                                            <span className="text-lg font-black italic text-emerald-500">
+                                                {pct.toFixed(1)}%
+                                            </span>
+                                        </div>
+                                        <div className="w-full h-2 bg-slate-50 rounded-full p-[2px] shadow-inner overflow-hidden">
+                                            <div
+                                                className="h-full bg-emerald-500 rounded-full transition-all duration-300"
+                                                style={{ width: `${pct}%` }}
+                                            />
+                                        </div>
+                                        <div className="flex justify-between mt-2 text-[9px] font-black uppercase text-slate-300 tracking-widest">
+                                            <span>0 N</span>
+                                            <span>{maxN} N</span>
+                                        </div>
                                     </div>
-                                    <div className="w-full h-2 bg-slate-50 rounded-full p-[2px] shadow-inner overflow-hidden">
-                                        <div
-                                            className="h-full bg-emerald-500 rounded-full transition-all duration-300"
-                                            style={{ width: `${Math.min(100, (displayPeak / 1000) * 100)}%` }}
-                                        />
-                                    </div>
-                                    <div className="flex justify-between mt-2 text-[9px] font-black uppercase text-slate-300 tracking-widest">
-                                        <span>0 N</span>
-                                        <span>1000 N</span>
-                                    </div>
-                                </div>
+                                    );
+                                })()}
 
                                 <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden group">
                                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:rotate-12 transition-transform">
@@ -506,16 +512,16 @@ const Monitor = () => {
                                     </span>
                                     <p className="text-sm font-bold italic leading-relaxed text-slate-300">
                                         {strikeType === 'pukulan'
-                                            ? displayPeak >= 800
+                                            ? displayPeak >= 130
                                                 ? '"Pukulan sangat kuat! Pertahankan posisi siku dan rotasi bahu untuk konsistensi."'
-                                                : displayPeak >= 500
+                                                : displayPeak >= 80
                                                 ? '"Pukulan cukup baik. Tingkatkan dorongan dari bahu dan kunci pergelangan tangan saat impact."'
                                                 : displayPeak > 0
                                                 ? '"Perkuat koordinasi lengan dan bahu. Fokus pada kecepatan ekstensi siku saat memukul."'
                                                 : '"Pilih atlet dan mulai sesi untuk melihat analisis pukulan."'
-                                            : displayPeak >= 800
+                                            : displayPeak >= 250
                                                 ? '"Tendangan sangat powerful! Pertahankan keseimbangan dan pivot kaki tumpu untuk akurasi."'
-                                                : displayPeak >= 500
+                                                : displayPeak >= 150
                                                 ? '"Tendangan cukup baik. Tingkatkan rotasi pinggul dan snap pergelangan kaki saat impact."'
                                                 : displayPeak > 0
                                                 ? '"Fokus pada kecepatan putaran pinggang dan angkat lutut lebih tinggi untuk menambah gaya ledak."'

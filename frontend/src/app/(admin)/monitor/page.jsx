@@ -513,18 +513,18 @@ const Monitor = () => {
                                     <p className="text-sm font-bold italic leading-relaxed text-slate-300">
                                         {strikeType === 'pukulan'
                                             ? displayPeak >= 130
-                                                ? '"Pukulan sangat kuat! Pertahankan posisi siku dan rotasi bahu untuk konsistensi."'
+                                                ? '"Pukulan sangat kuat! Rotasi bahu dan dorongan pinggul sudah optimal. Pertahankan posisi siku tetap terkunci saat impact dan jaga konsistensi kecepatan di setiap percobaan."'
                                                 : displayPeak >= 80
-                                                ? '"Pukulan cukup baik. Tingkatkan dorongan dari bahu dan kunci pergelangan tangan saat impact."'
+                                                ? '"Pukulan cukup baik. Fokus pada koordinasi antara dorongan bahu dan ekstensi siku. Kunci pergelangan tangan sesaat sebelum mengenai target untuk memaksimalkan transfer gaya."'
                                                 : displayPeak > 0
-                                                ? '"Perkuat koordinasi lengan dan bahu. Fokus pada kecepatan ekstensi siku saat memukul."'
+                                                ? '"Gaya pukulan masih perlu ditingkatkan. Latih kecepatan ekstensi siku dan perkuat otot bahu. Pastikan seluruh berat badan ikut mendorong ke depan saat memukul."'
                                                 : '"Pilih atlet dan mulai sesi untuk melihat analisis pukulan."'
                                             : displayPeak >= 250
-                                                ? '"Tendangan sangat powerful! Pertahankan keseimbangan dan pivot kaki tumpu untuk akurasi."'
+                                                ? '"Tendangan sangat powerful! Pivot kaki tumpu dan rotasi pinggul sudah sangat baik. Jaga keseimbangan setelah impact dan pertahankan snap pergelangan kaki untuk akurasi maksimal."'
                                                 : displayPeak >= 150
-                                                ? '"Tendangan cukup baik. Tingkatkan rotasi pinggul dan snap pergelangan kaki saat impact."'
+                                                ? '"Tendangan cukup baik. Tingkatkan kecepatan rotasi pinggul dan pastikan lutut terangkat cukup tinggi sebelum eksekusi. Snap pergelangan kaki saat impact akan menambah gaya secara signifikan."'
                                                 : displayPeak > 0
-                                                ? '"Fokus pada kecepatan putaran pinggang dan angkat lutut lebih tinggi untuk menambah gaya ledak."'
+                                                ? '"Gaya tendangan perlu ditingkatkan. Fokus pada kecepatan putaran pinggang dan angkat lutut lebih tinggi sebelum menendang. Latih fleksibilitas pinggul untuk menambah jangkauan dan gaya ledak."'
                                                 : '"Pilih atlet dan mulai sesi untuk melihat analisis tendangan."'
                                         }
                                     </p>

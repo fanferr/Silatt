@@ -43,46 +43,14 @@ const StatCard = ({ title, value, icon: Icon, color }) => (
 
 const Dashboard = () => {
     const [athletes, setAthletes] = useState([]);
-    const [serverStatus, setServerStatus] = useState('Menghubungkan...');
     const [sensorStatus, setSensorStatus] = useState('Memeriksa...');
-    const [serverColor, setServerColor] = useState('text-slate-400 bg-slate-50');
     const [sensorColor, setSensorColor] = useState('text-slate-400 bg-slate-50');
     
     const [selectedAthlete, setSelectedAthlete] = useState(null);
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const [categoryFilter, setCategoryFilter] = useState('all');
 
-    // Cek status App Server (Node.js backend) via HTTP ping setiap 4 detik
-    // Lebih cepat dari Socket.IO ping timeout (20-30 detik)
-    useEffect(() => {
-        let pingInterval = null;
 
-        const checkServer = async () => {
-            try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-                const res = await fetch(`${API_URL}/api/athletes`, {
-                    signal: AbortSignal.timeout(2000) // timeout 2 detik
-                });
-                if (res.ok || res.status < 500) {
-                    setServerStatus('Online');
-                    setServerColor('text-emerald-600 bg-emerald-50');
-                } else {
-                    setServerStatus('Error');
-                    setServerColor('text-orange-500 bg-orange-50');
-                }
-            } catch {
-                setServerStatus('Offline');
-                setServerColor('text-red-500 bg-red-50');
-            }
-        };
-
-        // Cek langsung saat komponen mount
-        checkServer();
-        // Lalu cek setiap 4 detik
-        pingInterval = setInterval(checkServer, 4000);
-
-        return () => clearInterval(pingInterval);
-    }, []);
 
 
     // Cek status sensor IoT dari Firebase RTDB (timestamp heartbeat)
@@ -169,17 +137,6 @@ const Dashboard = () => {
             await remove(ref(rtdb, `test_history/${id}`));
             await remove(ref(rtdb, `attempts/${id}`));
             
-            // 3. Sync dengan Backend (SQLite)
-            // Ini untuk membersihkan data di Leaderboard lokal
-            try {
-                const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-                await fetch(`${API_URL}/api/athletes/${id}`, {
-                    method: 'DELETE'
-                });
-            } catch (backendErr) {
-                console.warn("Backend sync failed, but Firebase data was removed.", backendErr);
-            }
-
             console.log(`Athlete ${id} and all associated data deleted successfully.`);
         } catch (err) {
             console.error("Failed to delete athlete and data", err);
@@ -218,10 +175,9 @@ const Dashboard = () => {
             </div>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard title="Total Atlet" value={athletes.length} icon={Users} color="text-blue-600 bg-blue-50" />
                 <StatCard title="Rata-rata Umur" value={`${avgAge} th`} icon={TrendingUp} color="text-emerald-600 bg-emerald-50" />
-                <StatCard title="App Server" value={serverStatus} icon={Activity} color={serverColor} />
                 <StatCard title="Sensor IoT" value={sensorStatus} icon={Zap} color={sensorColor} />
             </div>
 

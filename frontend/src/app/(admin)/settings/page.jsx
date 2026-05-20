@@ -26,8 +26,7 @@ const Settings = () => {
 
     const fetchAdminUsers = async () => {
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-            const response = await fetch(`${API_URL}/api/admin/users`);
+            const response = await fetch(`/api/admin/users`);
             const data = await response.json();
             setAdminUsers(data);
         } catch (error) {
@@ -46,8 +45,7 @@ const Settings = () => {
         setStatus({ type: '', message: '' });
 
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-            const response = await fetch(`${API_URL}/api/admin/update-password`, {
+            const response = await fetch(`/api/admin/update-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -74,8 +72,7 @@ const Settings = () => {
     const handleAddAdmin = async (e) => {
         e.preventDefault();
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-            const response = await fetch(`${API_URL}/api/admin/users`, {
+            const response = await fetch(`/api/admin/users`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newAdmin)
@@ -95,8 +92,7 @@ const Settings = () => {
         if (!confirm('Hapus admin ini?')) return;
         
         try {
-            const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
-            await fetch(`${API_URL}/api/admin/users/${id}`, { method: 'DELETE' });
+            await fetch(`/api/admin/users/${id}`, { method: 'DELETE' });
             fetchAdminUsers();
         } catch (error) {
             console.error('Gagal menghapus admin');

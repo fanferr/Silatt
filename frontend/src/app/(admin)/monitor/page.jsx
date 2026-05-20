@@ -501,9 +501,26 @@ const Monitor = () => {
                                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:rotate-12 transition-transform">
                                         <MessageSquare size={100} />
                                     </div>
-                                    <span className="text-[9px] font-black uppercase text-primary tracking-widest border-b border-primary/20 pb-2 mb-4 block">Saran Pelatih</span>
+                                    <span className="text-[9px] font-black uppercase text-primary tracking-widest border-b border-primary/20 pb-2 mb-4 block">
+                                        Saran Pelatih &mdash; {strikeType === 'pukulan' ? '🥊 Pukulan' : '🦵 Tendangan'}
+                                    </span>
                                     <p className="text-sm font-bold italic leading-relaxed text-slate-300">
-                                        "Fokus pada kecepatan putaran pinggang untuk menambah gaya ledak."
+                                        {strikeType === 'pukulan'
+                                            ? displayPeak >= 800
+                                                ? '"Pukulan sangat kuat! Pertahankan posisi siku dan rotasi bahu untuk konsistensi."'
+                                                : displayPeak >= 500
+                                                ? '"Pukulan cukup baik. Tingkatkan dorongan dari bahu dan kunci pergelangan tangan saat impact."'
+                                                : displayPeak > 0
+                                                ? '"Perkuat koordinasi lengan dan bahu. Fokus pada kecepatan ekstensi siku saat memukul."'
+                                                : '"Pilih atlet dan mulai sesi untuk melihat analisis pukulan."'
+                                            : displayPeak >= 800
+                                                ? '"Tendangan sangat powerful! Pertahankan keseimbangan dan pivot kaki tumpu untuk akurasi."'
+                                                : displayPeak >= 500
+                                                ? '"Tendangan cukup baik. Tingkatkan rotasi pinggul dan snap pergelangan kaki saat impact."'
+                                                : displayPeak > 0
+                                                ? '"Fokus pada kecepatan putaran pinggang dan angkat lutut lebih tinggi untuk menambah gaya ledak."'
+                                                : '"Pilih atlet dan mulai sesi untuk melihat analisis tendangan."'
+                                        }
                                     </p>
                                 </div>
                             </div>
